@@ -14,29 +14,31 @@ import org.wit.hillfort.models.HillfortModel
 
 class HillfortActivity : AppCompatActivity(), AnkoLogger {
 
-  var hillfort = HillfortModel()
+    var hillfort = HillfortModel()
     lateinit var app: MainApp
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_hillfort)
-      app = application as MainApp
-    info("Hillfort Activity started..")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_hillfort)
+        app = application as MainApp
+        info("Hillfort Activity started..")
 
 
-    btnAdd.setOnClickListener() {
-     hillfort.title = hillfortTitle.text.toString()
-        hillfort.description = description.text.toString()
-      if (hillfort.title.isNotEmpty()) {
-        app.hillforts.add(hillfort.copy())
-        info("add Button Pressed: ${hillfort}")
-        for (i in app.hillforts.indices) {
-          info("Hillfort[$i]:${app.hillforts[i]}")
+        btnAdd.setOnClickListener() {
+            hillfort.title = hillfortTitle.text.toString()
+            hillfort.description = description.text.toString()
+            if (hillfort.title.isNotEmpty()) {
+                app.hillforts.add(hillfort.copy())
+                info("add Button Pressed: ${hillfort}")
+                for (i in app.hillforts.indices) {
+                    info("Hillfort[$i]:${app.hillforts[i]}")
+                }
+                setResult(AppCompatActivity.RESULT_OK)
+                finish()
+            } else {
+                toast("Please Enter a title")
+            }
         }
-      }
-      else {
-        toast ("Please Enter a title")
-      }
+
     }
-  }
 }
